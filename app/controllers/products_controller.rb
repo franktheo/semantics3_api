@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
  
       if @products
          @products.each do |product|
-            if !duplicate_upc(product["sem3_id"])
+            unless duplicate_product?(product["sem3_id"],product["updated_at"])
                @product = Product.new(allowed_params(params[:query],product))
                @product.save
             end
@@ -23,13 +23,7 @@ class ProductsController < ApplicationController
          flash[:results] = "Search returns no results. Please search again."
          render 'search'
       end
-      @products_all = Product.all #.page(params[:page]).per(2)
 
-   end
-
-   def destroy
-      Product.find(params[:id]).destroy
-      redirect_to products_path, :notice => 'Product destroyed'
    end
 
    private
@@ -46,8 +40,8 @@ class ProductsController < ApplicationController
       end
    end
 
-   def duplicate_upc(sem3_id)
-     return true if (Product.where('search_results @> ?', {sem3_id: sem3_id}.to_json).count >= 1)
+   def duplicate_product?(sem3_id,updated_at)
+     return true if (Product.where('search_results @> ?', {sem3_id: sem3_id, updated_at: updated_at}.to_json).count >= 1)
      false
    end
 
