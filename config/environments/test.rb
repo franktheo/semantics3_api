@@ -5,6 +5,10 @@ Rails.application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
+
+  API_KEY = ENV['SEMANTIC3_API_KEY']
+  API_SECRET = ENV['SEMANTIC3_API_SECRET']
+
   config.cache_classes = true
 
   # Do not eager load code on boot. This avoids loading your whole application
@@ -20,7 +24,8 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
+  config.cache_store = :memory_store, { size: 64.megabytes }
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
