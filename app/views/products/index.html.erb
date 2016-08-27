@@ -1,0 +1,32 @@
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12" style="color:#333">
+         <% @products_all.each do |product| %>
+            <% results = product.search_results %>
+            <% results_sorted = results.sort_by{|k,v| k} %>
+            <table style="width:100%" class="table-reflow">
+            <% results_sorted.each do |k,v| %>
+               <% unless k.match('sem3_help') %>
+                  <tr>
+                     <th><%= k %></th>
+                     <td><%= v %></td><br>
+                  </tr>
+               <% end %>
+            <% end %>
+            </table>
+         <% end %>
+         <%= paginate @products_all %>
+      </div>
+   </div>
+</div>
+
+<style>
+table, th, td {
+   border: 1px solid black;
+   border-collapse: collapse;
+}
+th, td {
+   padding: 5px;
+   text-align: left;
+}
+</style>

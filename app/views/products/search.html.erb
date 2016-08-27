@@ -1,0 +1,23 @@
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12">
+
+        <h2> Search for Product Information</h2>
+
+        <%= form_tag search_results_product_path, :method=>'get' do %><br>
+          <h4> <%= label_tag 'Please enter product to search' %><br> </h4>
+          <%= text_field_tag 'query' %>
+          <%= submit_tag 'Search' %>
+        <% end %><br>
+        <h4>
+        <% if flash[:message] %> 
+           <%= flash[:message] %> 
+        <% else %>
+           <%= flash[:results] %> 
+        <% end %>
+        </h4>
+
+      </div>
+   </div>
+</div>
+

@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mpn: MyString
+  ean: MyString
+  manufacturer: MyString
+  price: MyString
+  price_currency: MyString
+  images_total: 1
+  geo: MyString
+  upc: MyString
+  gtins: MyString
+  variation_secondaryids: MyString
+  size: MyString
+  category: MyString
+  ean: MyString
+  features: MyString
+  brand: MyString
+  name: MyString
+  color: MyString
+  width: MyString
+  height: MyString
+  model: MyString
+  variation_id: MyString
+  sem3_id: MyString
+  length: MyString
+  sitedetails: MyString
+
+two:
+  mpn: MyString
+  ean: MyString
+  manufacturer: MyString
+  price: MyString
+  price_currency: MyString
+  images_total: 1
+  geo: MyString
+  upc: MyString
+  gtins: MyString
+  variation_secondaryids: MyString
+  size: MyString
+  category: MyString
+  ean: MyString
+  features: MyString
+  brand: MyString
+  name: MyString
+  color: MyString
+  width: MyString
+  height: MyString
+  model: MyString
+  variation_id: MyString
+  sem3_id: MyString
+  length: MyString
+  sitedetails: MyString
