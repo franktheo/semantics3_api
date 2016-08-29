@@ -47,11 +47,13 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'capybara'
   gem 'rspec-rails'
-  gem "chromedriver-helper"
+  gem 'chromedriver-helper'
+  gem 'rails-controller-testing'
   # Sanity check
   gem 'brakeman', :require => false
   # Profiler
   gem 'rack-mini-profiler'
+  gem 'factory_girl_rails'
 end
 
 group :development do

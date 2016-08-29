@@ -1,0 +1,22 @@
+<div class="container">
+   <div class="rows"> 
+      <div class="col-xs-12">
+         <%= content_tag :div, class: 'page-header' do %>
+            <%= content_tag :h1 do %>
+               Login
+            <% end %>
+         <% end %>
+
+         <%# form_tag session_url do %>
+         <%= form_tag session_path, :method=>'post' do %>
+            <div class="form-group form-group-lg">
+               <%= text_field_tag :username, '', class: 'form-control', placeholder: 'username' %>
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+            <%= submit_tag "Submit" %>
+
+         <% end %>
+
+      </div>
+   </div>
+</div>
