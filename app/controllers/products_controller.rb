@@ -7,10 +7,17 @@ class ProductsController < ApplicationController
    def search
    end
 
+   def search_background
+   end
+
    def search_results
 
-      @products = get_api_results
- 
+      @products = get_api_results 
+
+      if @products
+        puts "@products: " + @products[0].inspect
+      end
+
       if @products
          @products.each do |product|
             unless duplicate_product?(product["sem3_id"],product["updated_at"])
@@ -26,11 +33,25 @@ class ProductsController < ApplicationController
 
    end
 
+   def search_results_background
+
+     status = BackgroundJobs.perform_async(params[:query]) 
+     @products = Rails.cache.fetch(params[:query])
+ 
+     if @products
+        puts "@products: " + @products[0].inspect
+     end
+
+     render 'search_background'
+ 
+   end
+
    private
 
    def get_api_results
      Rails.cache.fetch(params[:query], :expires_in => 1.minute) do
-         sem3 = Semantics3::Products.new(API_KEY,API_SECRET)
+         puts "guess accessing API ..."
+         sem3 = Semantics3::Products.new(SEMANTICS3_API_KEY, SEMANTICS3_API_SECRET)
          sem3.products_field("search", params[:query])
          productsHash = sem3.get_products()
          if ( (productsHash["message"] != nil) && (productsHash["message"].include?("API key does not exist")))

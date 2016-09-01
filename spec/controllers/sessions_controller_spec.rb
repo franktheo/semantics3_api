@@ -12,16 +12,27 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe 'POST create' do
-    describe 'with valid username' do
+    describe 'with valid admin username' do
       it 'logs the user in' do
         post :create, {username: admin.username}
         expect(session[:user_id]).to eq admin.id
       end
 
-      it 'redirects to root_url' do
+      it 'redirects admin' do
         post :create, {username: admin.username}
-        #expect(response).to redirect_to root_url
-        expect(response).to redirect_to search_results_product_path
+        expect(response).to redirect_to search_background_path
+      end
+    end
+
+    describe 'with valid guest username' do
+      it 'logs the user in' do
+        post :create, {username: guest.username}
+        expect(session[:user_id]).to eq guest.id
+      end
+
+      it 'redirects guest' do
+        post :create, {username: guest.username}
+        expect(response).to redirect_to search_product_path
       end
     end
 

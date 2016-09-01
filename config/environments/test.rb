@@ -6,8 +6,8 @@ Rails.application.configure do
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
 
-  API_KEY = ENV['SEMANTIC3_API_KEY']
-  API_SECRET = ENV['SEMANTIC3_API_SECRET']
+  SEMANTICS3_API_KEY = ENV['SEMANTIC3_API_KEY']
+  SEMANTICS3_API_SECRET = ENV['SEMANTIC3_API_SECRET']
 
   config.cache_classes = true
 

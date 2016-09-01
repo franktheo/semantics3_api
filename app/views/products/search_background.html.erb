@@ -1,0 +1,30 @@
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12" style="color:#333">
+
+        <h2> Search for Products Information</h2>
+
+        <%= form_tag search_results_background_path, :method=>'get' do %><br>
+          <h4> <%= label_tag 'Please enter products to search' %><br> </h4>
+          <%= text_field_tag 'query' %><br>
+          <%# text_field_tag 'query1' %><br>
+          <%# text_field_tag 'query2' %><br>
+          <%# text_field_tag 'query3' %><br>
+          <%# text_field_tag 'query4' %><br>
+          <%# text_field_tag 'query5' %><br><br>
+          <%= submit_tag 'Prefetch & cache in the backround', class: 'btn btn-primary btn-xs' %>
+        <% end %><br>
+        <h4>
+        <% if flash[:message] %> 
+           <%= flash[:message] %> 
+        <% else %>
+           <%= flash[:results] %> 
+        <% end %>
+        </h4>
+
+        <%= link_to 'Log out', 'logout', class: 'btn btn-primary btn-xs' %><br>
+
+      </div>
+   </div>
+</div>
+

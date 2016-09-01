@@ -11,9 +11,9 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       case current_user.role
         when "admin"
-          redirect_to search_results_product_path
+          redirect_to search_background_path
         when "guest"
-          redirect_to search_results_product_path
+          redirect_to search_product_path
       end
     else
       session[:user_id] = nil

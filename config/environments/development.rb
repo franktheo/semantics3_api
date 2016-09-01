@@ -5,8 +5,8 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
 
-  API_KEY = ENV['SEMANTIC3_API_KEY']
-  API_SECRET = ENV['SEMANTIC3_API_SECRET']
+  SEMANTICS3_API_KEY = ENV['SEMANTIC3_API_KEY']
+  SEMANTICS3_API_SECRET = ENV['SEMANTIC3_API_SECRET']
 
   config.cache_classes = false
 
