@@ -34,6 +34,8 @@
 - rake db:migrate
 - rake db:seed (modify it as needed)
 - rails s
+- rake db:migrate RAILS_ENV=test
+- rake db:seed RAILS_ENV=test
 - rspec (for testing)
 - view coverage/index.html for code coverage
 - brakeman -5 -A

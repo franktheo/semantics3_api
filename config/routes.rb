@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'search_background', to: 'products#search_background'
   get 'search_results_product', to: 'products#search_results'
   get 'search_results_background', to: 'products#search_results_background'
-  get 'admin_page', to: 'products#admin_page'
+  get 'clear_cache', to: 'products#clear_cache'
 
   resources :admins
   get 'sessions/new'

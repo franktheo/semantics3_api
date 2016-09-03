@@ -2,22 +2,23 @@
    <div class="row">
       <div class="col-xs-12">
 
-         <br>
-         <%= link_to 'Search Again', search_product_path, class: 'btn btn-primary btn-xs' %>
-         <%= link_to 'Log out', 'logout', class: 'btn btn-primary btn-xs' %><br>
-         <br>
+        <br>
+        <%= link_to 'Search Again', search_product_path, class: 'btn btn-primary btn-xs' %>
+        <%= link_to 'Log out', 'logout', class: 'btn btn-primary btn-xs' %><br>
+        <br>
 
-         <% @products.each do |result| %>
-         <table style="width:100%" class="table-reflow">
-            <% result_sorted = result.sort_by{|k,v| k} %>
-            <% result_sorted.each do |key, value| %>
-               <tr>
-                  <th><%= key %></th>
-                  <td><%= value %></td>
-               </tr>
-            <% end %>
-         </table><br><br>
-         <% end %>
+        <% @products_paginate.each do |result| %>
+        <table style="width:100%" class="table-reflow">
+          <% result_sorted = result.sort_by{|k,v| k} %>
+          <% result_sorted.each do |key, value| %>
+             <tr>
+                <th><%= key %></th>
+                <td><%= value %></td>
+             </tr>
+          <% end %>
+        </table><br><br>
+        <% end %>
+        <%= paginate @products_paginate %>
       </div>
    </div>
 </div>
@@ -32,3 +33,4 @@ th, td {
    text-align: left;
 }
 </style>
+

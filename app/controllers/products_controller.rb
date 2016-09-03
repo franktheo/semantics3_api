@@ -12,15 +12,34 @@ class ProductsController < ApplicationController
 
    def search_results
 
-      @products = get_api_results 
+      @products = 
+        if Rails.cache.fetch(params[:query])
+           puts "option 1"
+           Rails.cache.fetch(params[:query])
+        elsif !Product.where(search_term: params[:query]).empty?
+           search_results = []
+           puts "option 2"
+           product_ids = Product.where(search_term: params[:query]).limit(10).pluck(:id)
+           products = Product.find(product_ids[0..10])
+           products.each do |product|
+             search_results  << product.search_results
+           end
+           search_results
+        else
+           puts "option 3"
+           get_api_results 
+        end
 
-      if @products
-        puts "@products: " + @products[0].inspect
+      if @products.class == Array
+         @products_paginate = Kaminari.paginate_array(@products).page(params[:page]).per(2) if @products
+      else
+         @products_paginate = @products.page(params[:page]).per(2) if @products
       end
 
       if @products
          @products.each do |product|
-            unless duplicate_product?(product["sem3_id"],product["updated_at"])
+            puts "product: " + product.inspect
+            if duplicate_product?(product["sem3_id"],product["updated_at"]) == false
                @product = Product.new(allowed_params(params[:query],product))
                @product.save
             end
@@ -35,22 +54,32 @@ class ProductsController < ApplicationController
 
    def search_results_background
 
-     status = BackgroundJobs.perform_async(params[:query]) 
-     @products = Rails.cache.fetch(params[:query])
- 
-     if @products
-        puts "@products: " + @products[0].inspect
+     #unless params[:query1].empty?
+     #  BackgroundJobs.perform_async(params[:query1]) 
+     #end
+
+     time = 0
+     [params[:query1],params[:query2], params[:query3],params[:query4],params[:query5]].each do |job|
+       unless job.empty?  
+          BackgroundJobs.perform_in(time,job) 
+          time += 15
+       end
      end
 
      render 'search_background'
  
    end
 
+   def clear_cache
+     Rails.cache.clear 
+     redirect_to search_background_path
+   end
+
    private
 
    def get_api_results
      Rails.cache.fetch(params[:query], :expires_in => 1.minute) do
-         puts "guess accessing API ..."
+         puts "guess accessing API ... search term: " + params[:query].inspect
          sem3 = Semantics3::Products.new(SEMANTICS3_API_KEY, SEMANTICS3_API_SECRET)
          sem3.products_field("search", params[:query])
          productsHash = sem3.get_products()
