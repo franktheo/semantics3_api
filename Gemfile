@@ -10,6 +10,8 @@ gem 'semantics3'
 gem 'kaminari'
 #Background process
 gem 'sucker_punch'
+#waiting for state changes
+gem 'wait_until'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 5.0.0.racecar1', '< 5.1'

@@ -38,7 +38,6 @@ class ProductsController < ApplicationController
 
       if @products
          @products.each do |product|
-            puts "product: " + product.inspect
             if duplicate_product?(product["sem3_id"],product["updated_at"]) == false
                @product = Product.new(allowed_params(params[:query],product))
                @product.save
@@ -54,12 +53,9 @@ class ProductsController < ApplicationController
 
    def search_results_background
 
-     #unless params[:query1].empty?
-     #  BackgroundJobs.perform_async(params[:query1]) 
-     #end
-
      time = 0
      [params[:query1],params[:query2], params[:query3],params[:query4],params[:query5]].each do |job|
+       puts "job: " + job.inspect
        unless job.empty?  
           BackgroundJobs.perform_in(time,job) 
           time += 15
