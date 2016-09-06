@@ -32,24 +32,18 @@ RSpec.describe ProductsController, type: :controller do
     it "returns http success" do
       get :search_results_background, query1: 'Sharp TV', query2: 'SONY TV', query3: 'Toshiba TV', query4: 'Dell Laptop',query5: 'HP Laptop'
       Wait.until_true! { Rails.cache.fetch('Sharp TV')[0]} 
-      puts "Rails.cache.fetch('Sharp TV')[0]: " + Rails.cache.fetch('Sharp TV')[0].inspect
       expect(Rails.cache.fetch('Sharp TV')[0]).to have_text(/Sharp/i)
 
       Wait.until_true! { Rails.cache.fetch('SONY TV')[0]} 
-      puts "Rails.cache.fetch('SONY TV')[0]: " + Rails.cache.fetch('SONY TV')[0].inspect
       expect(Rails.cache.fetch('SONY TV')[0]).to have_text(/Sony/i)
 
       Wait.until_true! { Rails.cache.fetch('Toshiba TV')[0]} 
-      puts "Rails.cache.fetch('Toshiba TV')[0]: " + Rails.cache.fetch('Toshiba TV')[0].inspect
       expect(Rails.cache.fetch('Toshiba TV')[0]).to have_text(/Toshiba/i)
 
       Wait.until_true! { Rails.cache.fetch('Dell Laptop')[0]} 
-      puts "Rails.cache.fetch('Dell Laptop')[0]: " + Rails.cache.fetch('Dell Laptop')[0].inspect
       expect(Rails.cache.fetch('Dell Laptop')[0]).to have_text(/Dell/i)
 
       Wait.until_true! { Rails.cache.fetch('HP Laptop')[0]} 
-      puts "Rails.cache.fetch('HP Laptop')[0]: " + Rails.cache.fetch('HP Laptop')[0].inspect
-      #expect(Rails.cache.fetch('HP Laptop')[0]).to have_text('HP')
       expect(Rails.cache.fetch('HP Laptop')[0]).to have_text(/HP/i)
 
     end
@@ -81,11 +75,14 @@ RSpec.describe ProductsController, type: :controller do
       expect(flash[:results]).to have_text('Search returns no results. Please search again.')
     end
 
-    #it "check if API key is incorrect or doesn't exist" do
-    #  ENV['SEMANTIC3_API_KEY'] = "BOGUS KEY"
-    #  get :search_results, query: 'Sharp TV'
-    #  expect(flash[:message]).to have_text('API key does not exist. Please provide one.')
-    #end
+   it "check if API key is incorrect or doesn't exist" do
+      API_KEY = ENV['SEMANTIC3_API_KEY']
+      SEMANTICS3_API_KEY = "BOGUS API KEY"
+      get :search_results, query: 'ASUS Laptop'
+      expect(flash[:message]).to have_text('API key does not exist. Please provide one.')
+      SEMANTICS3_API_KEY = API_KEY
+    end
+
   end
 
 end

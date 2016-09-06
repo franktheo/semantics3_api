@@ -14,11 +14,11 @@ class ProductsController < ApplicationController
 
       @products = 
         if Rails.cache.fetch(params[:query])
-           puts "option 1"
+           #puts "option 1"
            Rails.cache.fetch(params[:query])
         elsif !Product.where(search_term: params[:query]).empty?
            search_results = []
-           puts "option 2"
+           #puts "option 2"
            product_ids = Product.where(search_term: params[:query]).limit(10).pluck(:id)
            products = Product.find(product_ids[0..10])
            products.each do |product|
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
            end
            search_results
         else
-           puts "option 3"
+           #puts "option 3"
            get_api_results 
         end
 
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
 
      time = 0
      [params[:query1],params[:query2], params[:query3],params[:query4],params[:query5]].each do |job|
-       puts "job: " + job.inspect
+       #puts "job: " + job.inspect
        unless job.empty?  
           BackgroundJobs.perform_in(time,job) 
           time += 15
@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
 
    def get_api_results
      Rails.cache.fetch(params[:query], :expires_in => 1.minute) do
-         puts "guess accessing API ... search term: " + params[:query].inspect
+         #puts "guess accessing API ... search term: " + params[:query].inspect
          sem3 = Semantics3::Products.new(SEMANTICS3_API_KEY, SEMANTICS3_API_SECRET)
          sem3.products_field("search", params[:query])
          productsHash = sem3.get_products()

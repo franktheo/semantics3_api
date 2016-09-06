@@ -40,4 +40,20 @@
 - view coverage/index.html for code coverage
 - brakeman -5 -A
 
+**rspec run
+You should see something similar to:
+Finished in 1 minute 10.83 seconds (files took 2.47 seconds to load)
+25 examples, 0 failures
 
+Coverage report generated for RSpec to ../coverage. 309 / 309 LOC (100.0%) covered.
+
+**Brakeman run
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 4     |
+| Models            | 3     |
+| Templates         | 10    |
+| Errors            | 0     |
+| Security Warnings | 0 (0) |
++-------------------+-------+
